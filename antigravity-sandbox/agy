@@ -1,0 +1,71 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.12"
+# dependencies = ["google-genai"]
+# ///
+import sys, os, glob
+from google import genai
+
+if len(sys.argv) < 2:
+    print("Uso: agy \"<seu prompt>\"")
+    sys.exit(1)
+
+prompt = sys.argv[1]
+api_key = os.environ.get("GEMINI_API_KEY")
+
+if not api_key:
+    print("❌ Erro: A variável GEMINI_API_KEY não foi exportada para o container.")
+    sys.exit(1)
+
+print("🚀 [Antigravity CLI] Conectando ao Google Gemini Flash (3.6)...")
+client = genai.Client(api_key=api_key)
+
+# 1. Carrega o Contexto Global
+context_data = ""
+try:
+    with open(".agents/context.md", "r") as f:
+        context_data = f.read()
+except FileNotFoundError:
+    context_data = "Sem contexto de projeto."
+
+# 2. Varredura Automática de Skills (Novo Motor)
+skills_data = ""
+for skill_file in glob.glob(".agents/skills/**/SKILL.md", recursive=True):
+    try:
+        with open(skill_file, "r") as f:
+            skills_data += f"\n--- Skill: {skill_file} ---\n{f.read()}\n"
+    except Exception:
+        pass
+
+# 3. Engenharia de Prompt (Prevenção do Erro NoneType)
+system_instruction = f"""
+Você é o agente CLI deste repositório.
+Regras Globais:
+{context_data}
+
+Habilidades Documentadas:
+{skills_data}
+
+[CRÍTICO]: Responda EXCLUSIVAMENTE em texto (Markdown). NÃO invoque o recurso 'function_call' nativo.
+"""
+
+try:
+    response = client.models.generate_content(
+        model='gemini-3.6-flash',
+        contents=prompt,
+        config=genai.types.GenerateContentConfig(
+            system_instruction=system_instruction,
+            temperature=0.2,
+        ),
+    )
+    
+    # Tratamento de segurança contra retorno nulo
+    texto = response.text
+    if texto:
+        print("\n" + texto)
+    else:
+        print("\n⚙️ [Diagnóstico] O agente bloqueou a saída de texto e enviou um payload não-texto:")
+        print(response.candidates[0].content)
+
+except Exception as e:
+    print(f"\n❌ Falha na comunicação com a API: {e}")

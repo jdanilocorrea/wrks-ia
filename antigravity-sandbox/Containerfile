@@ -1,0 +1,19 @@
+FROM registry.fedoraproject.org/fedora-minimal:44
+
+# Instala dependências base, a linguagem auxiliar (Rust) e o cliente Podman
+RUN microdnf install -y curl git rust cargo tar podman && microdnf clean all
+
+# Força a instalação do uv diretamente no nível de sistema
+RUN curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR="/usr/bin" sh
+
+# Instala o ruff através do uv
+RUN uv tool install ruff
+
+# O parâmetro -L resolve o link simbólico e copia o arquivo real do ruff
+RUN cp -L /root/.local/bin/ruff /usr/bin/ruff
+
+# Copia o nosso executável local (mock/simulador) para dentro do container
+COPY agy /usr/bin/agy
+RUN chmod +x /usr/bin/agy
+
+WORKDIR /workspace

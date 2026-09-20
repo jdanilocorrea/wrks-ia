@@ -1,0 +1,27 @@
+# Ambientes Virtuais (Geridos pelo uv)
+.venv/
+env/
+venv/
+
+# Caches e Artefatos Python
+__pycache__/
+*.py[cod]
+*$py.class
+.ruff_cache/
+
+# Segredos e Variáveis de Ambiente (Crítico)
+.env
+.env.*
+*.pem
+*.key
+
+# Logs e Ficheiros Temporários
+*.log
+/tmp/
+agy_out.log
+
+# IDEs e Sistema Operativo
+.vscode/
+.idea/
+.DS_Store
+*.swp

@@ -1,0 +1,26 @@
+name: CI - Antigravity Sandbox
+on:
+  push:
+    branches: ["main", "master"]
+    paths:
+      - 'antigravity-sandbox/**'
+  pull_request:
+    branches: ["main", "master"]
+    paths:
+      - 'antigravity-sandbox/**'
+
+jobs:
+  quality-checks:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: antigravity-sandbox
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - run: uv python install
+      - run: uv sync --all-extras --dev
+      - run: uv run ruff check .
+      - run: uv run ruff format --check .
