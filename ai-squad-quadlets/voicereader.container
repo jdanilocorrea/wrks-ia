@@ -1,0 +1,16 @@
+[Unit]
+Description=Voice Reader Frontend
+After=tts.service
+
+[Container]
+Image=localhost/voicereader:latest
+ContainerName=voicereader
+Network=ai-net.network
+#PublishPort=7860:7860
+# Injeção do código em tempo real
+Volume=%h/work/development/github/wrks-ia/voicereader/src:/app/src:Z,U
+# Novo volume: Mapeia a pasta de saída para o Fedora
+Volume=%h/Documentos/Audios_IA:/app/audios:Z,U
+
+[Install]
+WantedBy=default.target

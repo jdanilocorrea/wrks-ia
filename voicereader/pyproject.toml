@@ -1,0 +1,20 @@
+[project]
+name = "voicereader"
+version = "0.1.0"
+description = "MS Edge TTS Reader com Gradio"
+requires-python = ">=3.12"
+dependencies = [
+    "gradio>=4.0.0",
+    "edge-tts>=6.1.9",
+    "asyncio",
+    "opentelemetry-api",
+    "opentelemetry-sdk",
+    "opentelemetry-exporter-otlp"
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]

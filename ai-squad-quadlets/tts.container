@@ -1,0 +1,15 @@
+[Unit]
+Description=Text-to-Speech Engine
+After=network-online.target
+
+[Container]
+Image=ghcr.io/matatonic/openedai-speech:latest
+ContainerName=tts
+Network=ai-net.network
+#PublishPort=8001:8000
+Volume=%h/.config/tts/config:/app/config:Z,U
+Volume=%h/.config/tts/voices:/app/voices:Z,U
+Environment=NUMBA_CACHE_DIR=/tmp
+
+[Install]
+WantedBy=default.target

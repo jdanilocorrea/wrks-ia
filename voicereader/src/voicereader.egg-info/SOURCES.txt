@@ -1,0 +1,7 @@
+pyproject.toml
+src/app.py
+src/voicereader.egg-info/PKG-INFO
+src/voicereader.egg-info/SOURCES.txt
+src/voicereader.egg-info/dependency_links.txt
+src/voicereader.egg-info/requires.txt
+src/voicereader.egg-info/top_level.txt

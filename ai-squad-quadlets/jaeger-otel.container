@@ -1,0 +1,20 @@
+[Unit]
+Description=Jaeger OpenTelemetry Backend
+After=network-online.target
+
+[Container]
+Image=docker.io/jaegertracing/all-in-one:latest
+ContainerName=jaeger-otel
+Network=ai-net.network
+
+# Habilita os recetores nativos do OpenTelemetry (OTLP)
+Environment=COLLECTOR_OTLP_ENABLED=true
+
+# Nota de arquitetura: Não expomos portas para o Fedora.
+# Portas internas ativas:
+# 16686 -> Interface Web (UI)
+# 4317  -> OTLP gRPC (Para os serviços enviarem os rastos)
+# 4318  -> OTLP HTTP (Para os serviços enviarem os rastos)
+
+[Install]
+WantedBy=default.target

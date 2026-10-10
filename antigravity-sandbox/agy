@@ -3,8 +3,10 @@
 # requires-python = ">=3.12"
 # dependencies = ["google-genai"]
 # ///
-import sys, os, glob
+import sys, os, glob, importlib.util, inspect
+from pathlib import Path
 from google import genai
+from google.genai import types
 
 if len(sys.argv) < 2:
     print("Uso: agy \"<seu prompt>\"")
@@ -17,7 +19,7 @@ if not api_key:
     print("❌ Erro: A variável GEMINI_API_KEY não foi exportada para o container.")
     sys.exit(1)
 
-print("🚀 [Antigravity CLI] Conectando ao Google Gemini Flash (3.6)...")
+print("🚀 [Antigravity CLI] Conectando ao Google Gemini Flash (3.6) com ferramentas ativas...")
 client = genai.Client(api_key=api_key)
 
 # 1. Carrega o Contexto Global
@@ -28,7 +30,7 @@ try:
 except FileNotFoundError:
     context_data = "Sem contexto de projeto."
 
-# 2. Varredura Automática de Skills (Novo Motor)
+# 2. Carrega a Documentação (SKILL.md)
 skills_data = ""
 for skill_file in glob.glob(".agents/skills/**/SKILL.md", recursive=True):
     try:
@@ -37,7 +39,30 @@ for skill_file in glob.glob(".agents/skills/**/SKILL.md", recursive=True):
     except Exception:
         pass
 
-# 3. Engenharia de Prompt (Prevenção do Erro NoneType)
+# 3. Motor Dinâmico de Ferramentas (Reflexão Python)
+def load_dynamic_tools(skills_dir: str) -> list:
+    tools = []
+    skills_path = Path(skills_dir)
+    if not skills_path.exists(): 
+        return tools
+        
+    for py_file in skills_path.rglob("*.py"):
+        if py_file.name.startswith("__"): continue
+        
+        spec = importlib.util.spec_from_file_location(py_file.stem, py_file)
+        if spec and spec.loader:
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            
+            for name, func in inspect.getmembers(module, inspect.isfunction):
+                if func.__module__ == module.__name__ and not name.startswith("_"):
+                    tools.append(func)
+    return tools
+
+# Carrega todas as funções Python encontradas nas pastas de skills
+tools_list = load_dynamic_tools(".agents/skills")
+
+# 4. Engenharia de Prompt 
 system_instruction = f"""
 Você é o agente CLI deste repositório.
 Regras Globais:
@@ -45,27 +70,26 @@ Regras Globais:
 
 Habilidades Documentadas:
 {skills_data}
-
-[CRÍTICO]: Responda EXCLUSIVAMENTE em texto (Markdown). NÃO invoque o recurso 'function_call' nativo.
 """
 
 try:
-    response = client.models.generate_content(
+    # Usamos Chats para que o SDK execute o código Python automaticamente
+    chat = client.chats.create(
         model='gemini-3.6-flash',
-        contents=prompt,
-        config=genai.types.GenerateContentConfig(
+        config=types.GenerateContentConfig(
             system_instruction=system_instruction,
             temperature=0.2,
-        ),
+            tools=tools_list if tools_list else None,
+        )
     )
     
-    # Tratamento de segurança contra retorno nulo
-    texto = response.text
-    if texto:
-        print("\n" + texto)
+    response = chat.send_message(prompt)
+    
+    if response.text:
+        print("\n" + response.text)
     else:
-        print("\n⚙️ [Diagnóstico] O agente bloqueou a saída de texto e enviou um payload não-texto:")
+        print("\n⚙️ [Diagnóstico] O agente devolveu um payload vazio ou não processado:")
         print(response.candidates[0].content)
 
 except Exception as e:
-    print(f"\n❌ Falha na comunicação com a API: {e}")
+    print(f"\n❌ Falha na comunicação com a API ou execução de ferramenta: {e}")

@@ -1,0 +1,21 @@
+[Unit]
+Description=Nginx Proxy Manager AI
+After=network-online.target
+
+[Container]
+Image=docker.io/jc21/nginx-proxy-manager:latest
+ContainerName=nginx-manager-ai
+Network=ai-net.network
+PublishPort=80:80
+PublishPort=81:81
+PublishPort=443:443
+
+# Força o s6-overlay a arrancar como root interno para não crashar
+User=0:0
+
+# Persistência atualizada
+Volume=%h/work/development/github/wrks-ia/nginx-manager-ai/data:/data:Z,U
+Volume=%h/work/development/github/wrks-ia/nginx-manager-ai/letsencrypt:/etc/letsencrypt:Z,U
+
+[Install]
+WantedBy=default.target

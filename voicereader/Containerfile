@@ -1,0 +1,18 @@
+FROM python:3.12-slim
+
+WORKDIR /app
+
+# Injeta o uv diretamente na imagem base para instalações ultra-rápidas
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
+# Copia o ficheiro com as dependências do Gradio e OpenTelemetry
+COPY pyproject.toml .
+
+# Instala os pacotes no sistema do contentor
+RUN uv pip install --system .
+
+# Copia o código-fonte (app.py)
+COPY src/ ./src/
+
+# Define o comando de arranque
+CMD ["python", "src/app.py"]
