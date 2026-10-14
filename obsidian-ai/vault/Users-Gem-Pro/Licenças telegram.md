@@ -78,3 +78,13 @@ Order: LNKMV7D9BPUPXG
 
 11. https://gemini.serviceactivation.in/subscription/new/4b3S2Zwym_U3EDl5xdhsEoT0Q7LWRHGQAT2xVyUa2mK5jeahWv4REyOcoGIdnX4rcIJZRZ5qfimuJw9cVcWH5Uu342D985HmlB9xtNbjwbAELFAMgEkARfShUeGFMGLzI7UivTLiPktgc-BkDbYYxmMAx_JMF76kRQS5InDqq6evkLTS0SMDjn_TmKsTgo0i8Kk6Gmfn_t5SBh1G3WhHpIo-vOaq26Qomhx9iDg3Deh-HDteNdmTQgAgdg1rR9Ci
 Order: LNKMV7D9BQ4M8Y
+
+
+
+
+
+
+
+DUOLINGO
+
+https://www.duolingo.com/redeem?code=AIRTELLIVEVM4ZOBFY
