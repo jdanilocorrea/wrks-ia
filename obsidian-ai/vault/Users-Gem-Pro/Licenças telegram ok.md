@@ -73,7 +73,7 @@ Order: LNKMV7D9BP7QA0
 XXXXX 9. https://gemini.serviceactivation.in/subscription/new/_zGfSepYp6JYZE_PFVCSe2WY34LTxItD4S8zt3pjtx4osvmP5UgohDLlci-AVR-T0z4_sNYSlo3s4JTO1MwVPO3RE7yqLcaH_vZ02HE0hVFX7WjXCfJkWGLraSlXF9HVr_AzYUnX2WcRTZ0QntlowiVgokb7BWCLx9ROvyw-xNyJyZdZ8dJB3dhknPyiSET4OLicc_c0BajkqqvY_WhNZD7sf9jPZo0SqeNLr1JUqzW25xBUa8I-uFHap28NtPXj
 Order: LNKMV7D9BPMWER
 
-10. https://gemini.serviceactivation.in/subscription/new/W2c9YCTyeekwQJegMn9HWsUG88bg2mC6OzdfpTu7wWLtpVZ7uhdN4KuO91Cq_16xKYTGTPoIiXsirHZLjdtxN4oAc3jA7-MtBKgkst_g5IFJa9V3c3M5mqoUddbXza4QS63e-buXmEt9CNj-KV7DqjP1GIpFWUnYvBx0ZQzqwfDy_ukBqNN2-cv5yIlPb2gWiXUR27QZFljwvMzDkelbdvhP3qB3Hbj_VCGDfGZWm8W0GK9ytWb6TvqhX25_zddm
+XXXXX 10. https://gemini.serviceactivation.in/subscription/new/W2c9YCTyeekwQJegMn9HWsUG88bg2mC6OzdfpTu7wWLtpVZ7uhdN4KuO91Cq_16xKYTGTPoIiXsirHZLjdtxN4oAc3jA7-MtBKgkst_g5IFJa9V3c3M5mqoUddbXza4QS63e-buXmEt9CNj-KV7DqjP1GIpFWUnYvBx0ZQzqwfDy_ukBqNN2-cv5yIlPb2gWiXUR27QZFljwvMzDkelbdvhP3qB3Hbj_VCGDfGZWm8W0GK9ytWb6TvqhX25_zddm
 Order: LNKMV7D9BPUPXG
 
 
@@ -94,3 +94,9 @@ G0_Jc0D3_UseRMastEr
 DUOLINGO
 
 https://www.duolingo.com/redeem?code=AIRTELLIVEVM4ZOBFY
+
+
+
+
+
+
