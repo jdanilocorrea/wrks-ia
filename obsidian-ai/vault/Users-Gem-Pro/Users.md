@@ -22,10 +22,6 @@
 > 
 > mestredoctrlc
 > 
-> mestredoctrlc
-> 
-> mestredoctrlc
-> 
 > nilocorrea.phi
 > 
 > splitsyntax
