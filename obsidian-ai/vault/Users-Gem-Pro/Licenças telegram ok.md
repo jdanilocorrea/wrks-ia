@@ -75,9 +75,6 @@ G0_Jc0D3_UseRMastEr
 
 
 
-DUOLINGO
-
-https://www.duolingo.com/redeem?code=AIRTELLIVEVM4ZOBFY
 
 
 
